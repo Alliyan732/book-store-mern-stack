@@ -12,6 +12,7 @@ var bookController = require('../controllers/book');
 
 // api routes
 router.get('/', bookController.getAllBooks);
+router.get('/:bookId', bookController.getOneBook);
 router.post('/', bookController.addBook);
 router.delete('/:bookId', bookController.deleteBook);
 router.put('/:bookId', bookController.updateBook);

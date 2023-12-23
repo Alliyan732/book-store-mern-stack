@@ -22,6 +22,7 @@ const EditBook = () => {
         setPublishYear(response.data.publishYear)
         setTitle(response.data.title)
         setLoading(false);
+        console.log("response.data", response.data)
       }).catch((error) => {
         setLoading(false);
         alert('An error happened. Please Chack console');
