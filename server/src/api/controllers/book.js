@@ -3,16 +3,16 @@ const Book = require('../models/book');
 
 exports.addBook = async (req, res, next) => {
     try {
-        const { bookName, authorName, bookPrice } = req.body;
+        const { title, author, publishYear } = req.body;
 
-        if (!bookName || !authorName || !bookPrice) {
+        if (!title || !author || !publishYear) {
             return res.status(400).json({ message: "Please enter all the fields." });
         }
 
         const newBook = {
-            bookName,
-            authorName,
-            bookPrice
+            title,
+            author,
+            publishYear
         };
 
         const book = await Book.create(newBook);
@@ -62,7 +62,30 @@ exports.getAllBooks = async (req, res, next) => {
             return res.status(404).json({ message: "Books not found." });
         }
 
-        return res.status(200).json(books);
+        return res.status(200).json({
+            data : books
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+exports.getOneBook = async (req, res, next) => {
+    try {
+
+        const bookId = req.params.bookId
+
+        const book = await Book.find({ _id: bookId});
+
+        if (!book) {
+            return res.status(404).json({ message: "Book not found." });
+        }
+
+        return res.status(200).json({
+            data : book
+        });
 
     } catch (error) {
         console.error(error);
@@ -73,7 +96,7 @@ exports.getAllBooks = async (req, res, next) => {
 exports.updateBook = async (req, res, next) => {
     try {
 
-        const { bookName, authorName, bookPrice } = req.body;
+        const { title, author, publishYear } = req.body;
 
         const bookId = req.params.bookId;
 
@@ -82,9 +105,9 @@ exports.updateBook = async (req, res, next) => {
         }
 
         const updatedBook = {
-            bookName,
-            authorName,
-            bookPrice
+            title,
+            author,
+            publishYear
         };
 
         const updateBook = await Book.findByIdAndUpdate(bookId, updatedBook, { new: true });  // new: true returns the updated book
