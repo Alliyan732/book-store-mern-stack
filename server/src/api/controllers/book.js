@@ -87,7 +87,7 @@ exports.updateBook = async (req, res, next) => {
             bookPrice
         };
 
-        const updateBook = await Book.findByIdAndUpdate(bookId, updatedBook, { new: true });
+        const updateBook = await Book.findByIdAndUpdate(bookId, updatedBook, { new: true });  // new: true returns the updated book
 
         return res.status(200).json({
             message: "Book updated Successfully!",
@@ -100,20 +100,4 @@ exports.updateBook = async (req, res, next) => {
     }
 }
 
-// exports.getDbTest = async (req, res, next) => {
-//     try {
-//         // Use projection to get only the 'email' field
-//         const isUserExists = await usersCollection.find({}, { projection: { email: 1 } }).toArray();
-
-//         if (!isUserExists || isUserExists.length === 0) {
-//             return res.status(404).json({ message: "Emails not found." });
-//         }
-
-//         res.status(200).json(isUserExists);
-
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({ message: "500: Error occurred" });
-//     }
-// };
 
