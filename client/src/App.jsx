@@ -1,43 +1,21 @@
-import React, {useState, useEffect} from 'react';
-import { getTestData } from './api/testApi';
-import { getTestDbData } from './api/testApi';
-function App() {
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import CreateBook from './pages/CreateBooks';
+import ShowBook from './pages/ShowBook';
+import EditBook from './pages/EditBook';
+import DeleteBook from './pages/DeleteBook';
 
-  const [data, setData] = useState(null)
-  const [dbData, setdbData] = useState([])
-
-  useEffect(() => {
-    getApiData();
-    getDbApiData();
-  },[])
-
-
-  const getApiData = async () => {
-    try {
-      const response = await getTestData();
-      setData(response.message)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const getDbApiData = async () => {
-    try {
-      const response = await getTestDbData();
-      setdbData(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
+const App = () => {
   return (
-    <>
-    <h1 className="text-3xl font-bold underline text-center mt-10 mb-10">Response from backend (test data): {data}</h1>
-    <h1 className='text-center font-semibold mb-5 text-2xl'>db_test Data:</h1>
-    {dbData.map((usersData, index) => (
-    <p className='text-center' key={index}>{usersData.email}</p>
-  ))}
-    </>
-  ) 
-}
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/books/create' element={<CreateBook />} />
+      <Route path='/books/details/:id' element={<ShowBook />} />
+      <Route path='/books/edit/:id' element={<EditBook />} />
+      <Route path='/books/delete/:id' element={<DeleteBook />} />
+    </Routes>
+  );
+};
 
 export default App;
