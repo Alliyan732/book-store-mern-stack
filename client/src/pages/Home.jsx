@@ -29,6 +29,9 @@ const Home = () => {
 
   return (
     <div className='p-4'>
+      <div className='mb-5 mt-5'>
+        <h1 className="text-center font-sans text-4xl text-slate-700 font-semibold mb">Book Store</h1>
+      </div>
       <div className='flex justify-center items-center gap-x-4'>
         <button
           className='bg-sky-300 hover:bg-sky-600 px-4 py-1 rounded-lg'
