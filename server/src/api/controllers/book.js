@@ -70,6 +70,36 @@ exports.getAllBooks = async (req, res, next) => {
     }
 }
 
+exports.updateBook = async (req, res, next) => {
+    try {
+
+        const { bookName, authorName, bookPrice } = req.body;
+
+        const bookId = req.params.bookId;
+
+        if (!bookId) {
+            return res.status(404).json({ message: "Book not found." });
+        }
+
+        const updatedBook = {
+            bookName,
+            authorName,
+            bookPrice
+        };
+
+        const updateBook = await Book.findByIdAndUpdate(bookId, updatedBook, { new: true });
+
+        return res.status(200).json({
+            message: "Book updated Successfully!",
+            data: updateBook
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 // exports.getDbTest = async (req, res, next) => {
 //     try {
 //         // Use projection to get only the 'email' field
